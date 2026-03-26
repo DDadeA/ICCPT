@@ -1,0 +1,10 @@
+.git
+.node_modules
+
+# Ignore test & generated files
+test/*
+translated_project.ts
+translated_generated.json
+
+run.bat
+difference.txt

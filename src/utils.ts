@@ -9,3 +9,8 @@ export function randomChars(length: number = 16) {
   }
   return result;
 }
+
+export function cleanVarName(name: string): string {
+  // Replace non-alphanumeric characters with underscores (Allowing korean characters)
+  return name.replace(/[^a-zA-Z0-9가-힣_]/g, "_");
+}

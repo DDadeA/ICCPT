@@ -285,27 +285,34 @@ export class Requires {
     return this;
   }
 
-  select(id: string, param: Partial<Require> = {}) {
-    const require = new Require({ reqId: id, ...param });
+  select(id: string | Choice, param: Partial<Require> = {}) {
+    const require = new Require({
+      reqId: typeof id === "string" ? id : id.id,
+      ...param,
+    });
 
     this.childs.push(require);
 
     return this;
   }
-  nselect(id: string, param: Partial<Require> = {}) {
-    const require = new Require({ reqId: id, required: false, ...param });
+  nselect(id: string | Choice, param: Partial<Require> = {}) {
+    const require = new Require({
+      reqId: typeof id === "string" ? id : id.id,
+      required: false,
+      ...param,
+    });
     this.childs.push(require);
     return this;
   }
   point(
-    pointObj: Point,
+    pointId: string | Point,
     operatorStr: OperatorStr,
     value: number,
     params: Partial<Require> = {},
   ) {
     const require = new Require({
       type: "points",
-      reqId: pointObj.id,
+      reqId: typeof pointId === "string" ? pointId : pointId.id,
       reqPoints: value,
       operator: OperatorMap[operatorStr],
       ...params,
@@ -314,15 +321,15 @@ export class Requires {
     return this;
   }
   pointCompare(
-    pointObj1: Point,
+    pointId1: string | Point,
     operatorStr: OperatorStr,
-    pointObj2: Point,
+    pointId2: string | Point,
     params: Partial<Require> = {},
   ) {
     const require = new Require({
       type: "pointCompare",
-      reqId: pointObj1.id,
-      reqId1: pointObj2.id,
+      reqId: typeof pointId1 === "string" ? pointId1 : pointId1.id,
+      reqId1: typeof pointId2 === "string" ? pointId2 : pointId2.id,
       operator: OperatorMap[operatorStr],
       ...params,
     });

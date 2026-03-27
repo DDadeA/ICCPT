@@ -236,13 +236,13 @@ choice.setRequireds(reqs);
 
 #### Methods
 
-- `select(id: string, param?: Partial<Require>): Requires`  
+- `select(id: string|Choice, param?: Partial<Require>): Requires`  
   Demands a choice ID to be selected.
-- `nselect(id: string, param?: Partial<Require>): Requires`  
+- `nselect(id: string|Choice, param?: Partial<Require>): Requires`  
   Demands a choice ID to _not_ be selected.
-- `point(pointObj: Point, operatorStr: OperatorStr, value: number, params?: Partial<Require>): Requires`  
+- `point(pointId: string|Point, operatorStr: OperatorStr, value: number, params?: Partial<Require>): Requires`  
   Compares a point total against a literal value.
-- `pointCompare(pointObj1: Point, operatorStr: OperatorStr, pointObj2: Point, params?: Partial<Require>): Requires`  
+- `pointCompare(pointId1: string|Point, operatorStr: OperatorStr, pointId2: string|Point, params?: Partial<Require>): Requires`  
   Compares a point against another point.
 - `xOfTheseMet(requires: Require[], num: number, params?: Partial<Require>): Requires`  
   Met if `num` of the nested requirements are met.
@@ -252,9 +252,10 @@ choice.setRequireds(reqs);
 #### `xOfTheseMet()` Example
 
 ```typescript
+const choice1 = row1.addChoice({ ... });
 const reqs = new Requires().xOfTheseMet(
   [
-    new Requires().select("choice1"),
+    new Requires().select(choice1),
     new Requires().point(gold, ">=", 10),
     new Requires().point(health, "<", 5),
   ],

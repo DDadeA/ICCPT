@@ -1,8 +1,12 @@
-# Interactive CYOA Creator Plus - Text based interface
+# **I**nteractive **C**YOA **C**reator **P**lus - **T**ext based interface
 
-Designed based on ICC Plus 2.8.10 version. `ICCPT` allows you to create projects programmatically using a text-based interface.
+`ICCPT` allows you to create projects programmatically using a text-based interface.
+
+Designed based on ICC Plus 2.8.10 version.
 
 ## Quick Start
+
+For imigration from _existing ICC project.json_, refer to the **[Tools](#Tools)** section below.
 
 ```typescript
 import Project from "./src/iccpt.ts";
@@ -42,8 +46,6 @@ import fs from "fs";
 const jsonString = JSON.stringify(project);
 fs.writeFileSync("project.json", jsonString);
 ```
-
----
 
 ## API Reference
 
@@ -294,3 +296,29 @@ Maps comparison string operators to internal values used by ICC:
 #### `OperatorStr`
 
 - `">=" | ">" | "<=" | "<" | "==" | ""`
+
+## **Tools**
+
+### Auto Translation: `project.json` &rarr; `translated_project.ts`
+
+A command-line tool to translate existing ICC project JSON files into the new format compatible with `ICCPT`.
+
+This tool is still in early stages and may not cover all edge cases. Beaware of potential discrepancies in the output, and always keep a backup of your original `project.json`.
+
+Recommand using ICC Plus 2.8.10 for exporting the original `project.json` to ensure compatibility.
+
+```sh
+node tools/translation.ts <path_to_original_project.json>
+```
+
+Compiling is the same as other ICCPT projects. Run the generated `translated_project.ts` to get the `translated_generated.json` (ICC Plus format)
+
+```sh
+node ./translated_project.ts
+```
+
+### Comparing tool for debugging translation
+
+```sh
+node tools/compareJson.ts <path_to_original_project.json> <path_to_translated_project.json>
+```
